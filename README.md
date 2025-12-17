@@ -16,6 +16,10 @@ sudo ./vpn/wg-server-setup.sh
 
 Then open UDP `WG_PORT` (default 51820) on any cloud firewall/security-group.
 
+Firewall examples:
+- UFW (Ubuntu): `sudo ufw allow 51820/udp && sudo ufw reload`
+- Cloud firewall/SG: add an inbound rule UDP `WG_PORT` → your server.
+
 ## Make clients
 ```bash
 sudo ./vpn/wg-mkclients.sh phone laptop          # specific names
@@ -31,6 +35,12 @@ Client files appear in `~/vpn/clients/*.conf`. Import in WireGuard (Windows/macO
 - `SERVER_ENDPOINT` — set your public IP/DNS; leave blank to auto-detect.
 - `CLIENT_ALLOWED_IPS` — `0.0.0.0/0` for full tunnel; set a subnet for split tunnel.
 - `CLIENT_KEEPALIVE` — keepalive seconds (default `25`).
+
+How to edit config:
+```bash
+cp vpn/wg-config.env.example vpn/wg-config.env
+nano vpn/wg-config.env   # change PORT, SERVER_ENDPOINT, DNS, etc.
+```
 
 ## Handy checks
 ```bash
