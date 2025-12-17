@@ -7,6 +7,8 @@ CONFIG_FILE="${SCRIPT_DIR}/wg-config.env"
 if [[ -f "$CONFIG_FILE" ]]; then
   # shellcheck disable=SC1090
   source "$CONFIG_FILE"
+else
+  echo "[info] No ${CONFIG_FILE}, using built-in defaults. Copy wg-config.env.example to override."
 fi
 
 : "${WG_IF:=wg0}"
@@ -143,6 +145,8 @@ main() {
   ls -la "$CLIENT_DIR" || true
   echo
   wg show
+  echo
+  echo "Tip: import the .conf files from ${CLIENT_DIR} into WireGuard on your device."
 }
 
 main "$@"

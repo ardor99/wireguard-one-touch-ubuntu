@@ -7,6 +7,8 @@ CONFIG_FILE="${SCRIPT_DIR}/wg-config.env"
 if [[ -f "$CONFIG_FILE" ]]; then
   # shellcheck disable=SC1090
   source "$CONFIG_FILE"
+else
+  echo "[info] No ${CONFIG_FILE}, using built-in defaults. Copy wg-config.env.example to override."
 fi
 
 : "${WG_IF:=wg0}"
@@ -102,6 +104,7 @@ main() {
   wg show
   echo
   echo "IMPORTANT: If your VPS provider has a firewall, open ${WG_PORT}/UDP there too."
+  echo "Next: create clients with sudo ${SCRIPT_DIR}/wg-mkclients.sh <name>"
 }
 
 main
